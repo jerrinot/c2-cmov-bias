@@ -1,0 +1,6 @@
+target/
+*.class
+# JMH / perf scratch output
+*.hprof
+hs_err_pid*.log
+replay_pid*.log

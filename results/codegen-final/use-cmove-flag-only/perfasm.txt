@@ -1,0 +1,228 @@
+# JMH version: 1.37
+# VM version: JDK 28-internal, OpenJDK 64-Bit Server VM, 28-internal-adhoc.build.jdk
+# VM invoker: /opt/jdk-release/bin/java
+# VM options: -XX:+UseCMoveUnconditionally
+# Blackhole mode: compiler (auto-detected, use -Djmh.blackhole.autoDetect=false to disable)
+# Warmup: 2 iterations, 300 ms each
+# Measurement: 2 iterations, 300 ms each
+# Timeout: 10 min per iteration
+# Threads: 1 thread, will synchronize iterations
+# Benchmark mode: Average time, time/op
+# Benchmark: org.openjdk.experiments.CMoveBiasBench.carriedSelect
+# Parameters: (pattern = RAND9010)
+
+# Run progress: 0.00% complete, ETA 00:00:01
+# Fork: 1 of 1
+# Preparing profilers: LinuxPerfAsmProfiler 
+# Profilers consume stdout and stderr from target VM, use -v EXTRA to copy to console
+# Warmup Iteration   1: 796378.830 ns/op
+# Warmup Iteration   2: 817642.917 ns/op
+Iteration   1: 730152.978 ns/op
+Iteration   2: 736826.209 ns/op
+# Processing profiler results: LinuxPerfAsmProfiler 
+
+
+Result "org.openjdk.experiments.CMoveBiasBench.carriedSelect":
+  733489.594 ns/op
+
+Secondary result "org.openjdk.experiments.CMoveBiasBench.carriedSelect:asm":
+PrintAssembly processed: 142799 total address lines.
+Perf output processed (skipped 3.142 seconds):
+ Column 1: cycles (321 events)
+ Column 2: instructions (317 events)
+ Column 3: branches (316 events)
+ Column 4: branch-misses (310 events)
+
+Hottest code regions (>1.00% "cycles" events):
+ Event counts are percents of total event count.
+
+....[Hottest Region 1]..............................................................................
+c2, level 4, org.openjdk.experiments.CMoveBiasBench::carriedKernel, version 4, compile id 556 
+
+                                                                                                                      ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                                            0x00007c8de3cf46cf:   lea    r9d,[rdi-0x7]
+                                                            0x00007c8de3cf46d3:   mov    r13d,0x1
+                                                            0x00007c8de3cf46d9:   cmp    r9d,0x1
+                                                            0x00007c8de3cf46dd:   jle    0x00007c8de3cf47f4
+                                                            0x00007c8de3cf46e3:   mov    r8d,0x1f40                   ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                                                                                                                      ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@50 (line 88)
+                                                            0x00007c8de3cf46e9:   xor    ebx,ebx
+                                        ╭                   0x00007c8de3cf46eb:   jmp    0x00007c8de3cf47b8
+                                        │        ↗          0x00007c8de3cf46f0:   mov    r10,rcx
+   4.67%     5.05%     4.11%     4.19%  │        │          0x00007c8de3cf46f3:   xor    r10,r11                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        │        │                                                                    ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        │        │↗         0x00007c8de3cf46f6:   add    r13d,0x8                     ;*iinc {reexecute=0 rethrow=0 return_oop=0}
+                                        │        ││                                                                   ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@47 (line 88)
+   2.49%     2.52%     3.80%     2.90%  │        ││         0x00007c8de3cf46fa:   cmp    r13d,eax
+   2.49%     0.63%     2.85%     1.29%  │╭       ││         0x00007c8de3cf46fd:   jge    0x00007c8de3cf47ac           ;*aload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││       ││                                                                   ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@23 (line 88)
+                                        ││       ││         0x00007c8de3cf4703:   mov    r11d,DWORD PTR [rsi+r13*4+0xc];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││       ││                                                                   ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   6.85%     6.62%     6.01%     5.81%  ││       ││         0x00007c8de3cf4708:   cmp    r11d,edx
+   0.62%                         0.65%  ││╭      ││         0x00007c8de3cf470b:   jle    0x00007c8de3cf4789           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        │││      ││                                                                   ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        │││      ││         0x00007c8de3cf470d:   mov    r11,rcx
+   0.31%               0.63%            │││      ││         0x00007c8de3cf4710:   xor    r11,r10                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        │││      ││                                                                   ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        │││      ││↗        0x00007c8de3cf4713:   mov    r10d,DWORD PTR [rsi+r13*4+0x10];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        │││      │││                                                                  ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   5.92%     3.47%     4.75%     3.87%  │││      │││        0x00007c8de3cf4718:   cmp    r10d,edx
+                                        │││╭     │││        0x00007c8de3cf471b:   jle    0x00007c8de3cf478e           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││     │││                                                                  ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        ││││     │││        0x00007c8de3cf471d:   mov    r10,rcx
+   1.25%     0.63%     0.32%     0.97%  ││││     │││        0x00007c8de3cf4720:   xor    r10,r11                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││     │││                                                                  ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        ││││     │││↗       0x00007c8de3cf4723:   mov    r11d,DWORD PTR [rsi+r13*4+0x14];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││     ││││                                                                 ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   3.12%     3.47%     3.80%     3.23%  ││││     ││││       0x00007c8de3cf4728:   cmp    r11d,edx
+   0.31%     0.63%     0.63%     0.97%  ││││╭    ││││       0x00007c8de3cf472b:   jle    0x00007c8de3cf4793           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││    ││││                                                                 ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        │││││    ││││       0x00007c8de3cf472d:   mov    r11,rcx
+   1.56%     2.21%     2.53%     1.29%  │││││    ││││       0x00007c8de3cf4730:   xor    r11,r10                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││    ││││                                                                 ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        │││││    ││││↗      0x00007c8de3cf4733:   mov    r10d,DWORD PTR [rsi+r13*4+0x18];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││    │││││                                                                ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   4.67%     6.31%     5.38%     8.39%  │││││    │││││      0x00007c8de3cf4738:   cmp    r10d,edx
+                                 0.65%  │││││╭   │││││      0x00007c8de3cf473b:   jle    0x00007c8de3cf4798           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││   │││││                                                                ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        ││││││   │││││      0x00007c8de3cf473d:   mov    r10,rcx
+   0.62%     1.89%     0.63%     0.65%  ││││││   │││││      0x00007c8de3cf4740:   xor    r10,r11                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││   │││││                                                                ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        ││││││   │││││↗     0x00007c8de3cf4743:   mov    r11d,DWORD PTR [rsi+r13*4+0x1c];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││   ││││││                                                               ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   3.43%     2.21%     4.11%     4.19%  ││││││   ││││││     0x00007c8de3cf4748:   cmp    r11d,edx
+   0.31%     0.32%     0.32%     0.32%  ││││││╭  ││││││     0x00007c8de3cf474b:   jle    0x00007c8de3cf479d           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││  ││││││                                                               ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        │││││││  ││││││     0x00007c8de3cf474d:   mov    r11,rcx
+   0.31%               0.32%            │││││││  ││││││     0x00007c8de3cf4750:   xor    r11,r10                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││  ││││││                                                               ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        │││││││  ││││││↗    0x00007c8de3cf4753:   mov    r10d,DWORD PTR [rsi+r13*4+0x20];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││  │││││││                                                              ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   4.98%     5.99%     4.43%     4.19%  │││││││  │││││││    0x00007c8de3cf4758:   cmp    r10d,edx
+   0.31%     0.95%     1.27%     1.29%  │││││││╭ │││││││    0x00007c8de3cf475b:   jle    0x00007c8de3cf47a2           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││││ │││││││                                                              ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        ││││││││ │││││││    0x00007c8de3cf475d:   mov    r10,rcx
+   0.93%     0.95%     0.63%     1.94%  ││││││││ │││││││    0x00007c8de3cf4760:   xor    r10,r11                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││││ │││││││                                                              ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        ││││││││ │││││││↗   0x00007c8de3cf4763:   mov    r11d,DWORD PTR [rsi+r13*4+0x24];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││││ ││││││││                                                             ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   5.61%     4.42%     3.16%     4.84%  ││││││││ ││││││││   0x00007c8de3cf4768:   cmp    r11d,edx
+   1.87%     1.58%     0.63%     1.29%  ││││││││╭││││││││   0x00007c8de3cf476b:   jle    0x00007c8de3cf47a7           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││││││││││││                                                             ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        │││││││││││││││││   0x00007c8de3cf476d:   mov    r11,rcx
+   0.31%     1.89%     1.27%     0.65%  │││││││││││││││││   0x00007c8de3cf4770:   xor    r11,r10                      ;*lstore {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││││││││││││                                                             ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@45 (line 89)
+                                        │││││││││││││││││↗  0x00007c8de3cf4773:   mov    r10d,DWORD PTR [rsi+r13*4+0x28];*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                        ││││││││││││││││││                                                            ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@27 (line 88)
+   4.36%     7.26%     6.33%     7.74%  ││││││││││││││││││  0x00007c8de3cf4778:   cmp    r10d,edx
+             0.32%               0.32%  │││││││││╰││││││││  0x00007c8de3cf477b:   jg     0x00007c8de3cf46f0           ;*if_icmple {reexecute=0 rethrow=0 return_oop=0}
+                                        │││││││││ ││││││││                                                            ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@33 (line 89)
+                                        │││││││││ ││││││││                                                            ;   {other}
+                                        │││││││││ ││││││││  0x00007c8de3cf4781:   mov    r10,r11
+   3.43%     1.58%     4.43%     2.90%  │││││││││ ╰│││││││  0x00007c8de3cf4784:   jmp    0x00007c8de3cf46f6
+                                        ││↘││││││  │││││││  0x00007c8de3cf4789:   mov    r11,r10
+   3.74%     5.68%     5.38%     4.84%  ││ ││││││  ╰││││││  0x00007c8de3cf478c:   jmp    0x00007c8de3cf4713
+                                        ││ ↘│││││   ││││││  0x00007c8de3cf478e:   mov    r10,r11
+   4.36%     6.62%     4.43%     4.52%  ││  │││││   ╰│││││  0x00007c8de3cf4791:   jmp    0x00007c8de3cf4723
+                                        ││  ↘││││    │││││  0x00007c8de3cf4793:   mov    r11,r10
+   1.87%     4.73%     3.16%     5.81%  ││   ││││    ╰││││  0x00007c8de3cf4796:   jmp    0x00007c8de3cf4733
+                                        ││   ↘│││     ││││  0x00007c8de3cf4798:   mov    r10,r11
+   3.74%     3.47%     4.75%     2.58%  ││    │││     ╰│││  0x00007c8de3cf479b:   jmp    0x00007c8de3cf4743
+                                        ││    ↘││      │││  0x00007c8de3cf479d:   mov    r11,r10
+   6.85%     3.79%     3.48%     3.55%  ││     ││      ╰││  0x00007c8de3cf47a0:   jmp    0x00007c8de3cf4753
+                                        ││     ↘│       ││  0x00007c8de3cf47a2:   mov    r10,r11
+   6.54%     4.10%     5.38%     6.45%  ││      │       ╰│  0x00007c8de3cf47a5:   jmp    0x00007c8de3cf4763
+                                        ││      ↘        │  0x00007c8de3cf47a7:   mov    r11,r10
+   5.30%     4.10%     5.06%     5.48%  ││               ╰  0x00007c8de3cf47aa:   jmp    0x00007c8de3cf4773
+                                        │↘                  0x00007c8de3cf47ac:   mov    r11,QWORD PTR [r15+0x30]     ; ImmutableOopMap {rsi=Oop }
+                                        │                                                                             ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                                        │                                                                             ; - (reexecute) org.openjdk.experiments.CMoveBiasBench::carriedKernel@50 (line 88)
+   0.31%     0.32%                      │                   0x00007c8de3cf47b0:   test   DWORD PTR [r11],eax          ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                                        │                                                                             ; - org.openjdk.experiments.CMoveBiasBench::carriedKernel@50 (line 88)
+                                        │                                                                             ;   {poll}
+                                        │                   0x00007c8de3cf47b3:   cmp    r13d,r9d
+                                        │                   0x00007c8de3cf47b6:   jge    0x00007c8de3cf47f4
+                                        ↘                   0x00007c8de3cf47b8:   mov    eax,edi
+                                                            0x00007c8de3cf47ba:   sub    eax,r13d
+                                                            0x00007c8de3cf47bd:   add    eax,0xfffffff9
+                                                            0x00007c8de3cf47c0:   cmp    r9d,r13d
+....................................................................................................
+  93.46%    93.69%    93.99%    97.74%  <total for region 1>
+
+....[Hottest Regions]...............................................................................
+  93.46%    93.69%    93.99%    97.74%                c2, level 4  org.openjdk.experiments.CMoveBiasBench::carriedKernel, version 4, compile id 556 
+   0.93%     0.32%     0.32%     0.97%                  libjvm.so  ElfSymbolTable::lookup(unsigned char*, int*, int*, int*, ElfFuncDescTable*) 
+   0.31%                                        [kernel.kallsyms]  entry_SYSCALL_64_safe_stack 
+   0.31%                                        [kernel.kallsyms]  fpregs_assert_state_consistent 
+   0.31%               0.32%                    [kernel.kallsyms]  native_write_msr 
+   0.31%               0.63%                    [kernel.kallsyms]  fput 
+   0.31%     0.32%                              [kernel.kallsyms]  ext4_bio_write_folio 
+   0.31%                                        [kernel.kallsyms]  do_syscall_64 
+   0.31%                                libopcodes-2.46-system.so  [unknown] 
+   0.31%                                                libjvm.so  StateSplit::input_values_do(ValueVisitor*) 
+   0.31%                                                libjvm.so  LIR_List::store(LIR_Opr, LIR_Address*, CodeEmitInfo*, LIR_PatchCode) 
+   0.31%                                                libjvm.so  runtime_call_Relocation::copy_into(RelocationHolder&) const 
+   0.31%                                                libjvm.so  RelocIterator::initialize(nmethod*, unsigned char*, unsigned char*) 
+   0.31%     0.63%                                      libjvm.so  xmlStream::write_text(char const*, unsigned long) [clone .part.0] 
+   0.31%                                                           <unknown> 
+   0.31%                                                libjvm.so  xmlStream::write_text(char const*, unsigned long) 
+   0.31%                                                libc.so.6  _IO_fwrite 
+   0.31%                                                           <unknown> 
+   0.31%                                                libc.so.6  realloc 
+   0.31%     0.32%                                      libc.so.6  __memset_avx512_unaligned 
+             4.73%     4.43%     1.29%  <...other 29 warm regions...>
+....................................................................................................
+ 100.00%   100.00%    99.68%   100.00%  <totals>
+
+....[Hottest Methods (after inlining)]..............................................................
+  93.46%    93.69%    93.99%    97.74%                c2, level 4  org.openjdk.experiments.CMoveBiasBench::carriedKernel, version 4, compile id 556 
+   0.93%     0.32%     0.32%     0.97%                  libjvm.so  ElfSymbolTable::lookup(unsigned char*, int*, int*, int*, ElfFuncDescTable*) 
+   0.62%               0.63%                                       <unknown> 
+   0.31%                                                libc.so.6  realloc 
+   0.31%                                libopcodes-2.46-system.so  [unknown] 
+   0.31%     0.32%                                      libc.so.6  __memset_avx512_unaligned 
+   0.31%                                                libc.so.6  _IO_fwrite 
+   0.31%               0.63%                    [kernel.kallsyms]  fput 
+   0.31%                                        [kernel.kallsyms]  fpregs_assert_state_consistent 
+   0.31%                                                libjvm.so  xmlStream::write_text(char const*, unsigned long) 
+   0.31%                                        [kernel.kallsyms]  do_syscall_64 
+   0.31%                                                libjvm.so  runtime_call_Relocation::copy_into(RelocationHolder&) const 
+   0.31%               0.32%                    [kernel.kallsyms]  native_write_msr 
+   0.31%                                                libjvm.so  RelocIterator::initialize(nmethod*, unsigned char*, unsigned char*) 
+   0.31%                                                libjvm.so  StateSplit::input_values_do(ValueVisitor*) 
+   0.31%     0.32%                              [kernel.kallsyms]  ext4_bio_write_folio 
+   0.31%                                                libjvm.so  LIR_List::store(LIR_Opr, LIR_Address*, CodeEmitInfo*, LIR_PatchCode) 
+   0.31%                                        [kernel.kallsyms]  entry_SYSCALL_64_safe_stack 
+   0.31%     0.63%                                      libjvm.so  xmlStream::write_text(char const*, unsigned long) [clone .part.0] 
+....................................................................................................
+ 100.00%    95.27%    95.89%    98.71%  <totals>
+
+....[Distribution by Source]........................................................................
+  93.46%    93.69%    93.99%    97.74%                c2, level 4
+   2.80%     1.89%     1.58%     1.29%                  libjvm.so
+   1.87%     2.84%     3.16%                    [kernel.kallsyms]
+   0.93%     1.58%     0.32%     0.97%                  libc.so.6
+   0.62%               0.63%                                     
+   0.31%                                libopcodes-2.46-system.so
+....................................................................................................
+ 100.00%   100.00%    99.68%   100.00%  <totals>
+
+
+
+# Run complete. Total time: 00:00:05
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+NOTE: Current JVM experimentally supports Compiler Blackholes, and they are in use. Please exercise
+extra caution when trusting the results, look into the generated code to check the benchmark still
+works, and factor in a small probability of new VM bugs. Additionally, while comparisons between
+different JVMs are already problematic, the performance difference caused by different Blackhole
+modes can be very significant. Please make sure you use the consistent Blackhole mode for comparisons.
+
+Benchmark                         (pattern)  Mode  Cnt       Score   Error  Units
+CMoveBiasBench.carriedSelect       RAND9010  avgt    2  733489.594          ns/op
+CMoveBiasBench.carriedSelect:asm   RAND9010  avgt              NaN            ---
